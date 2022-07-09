@@ -29,6 +29,8 @@ if __name__ == "__main__":
         screen.fill((200, 200, 200))
 
         screen.blit(balloon.image, (50, 50))
+        
+        clock.tick(1000)
 
         pygame.display.flip()
 
