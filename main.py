@@ -19,6 +19,8 @@ if __name__ == "__main__":
             super().__init__()
             self.image = pygame.image.load('Red_Ballon_1.png')
             self.rect = self.image.get_rect()
+            self.pos_x = 50
+            self.pos_y = 50
 
     balloon = Balloon()
 
@@ -28,7 +30,7 @@ if __name__ == "__main__":
 
         screen.fill((200, 200, 200))
 
-        screen.blit(balloon.image, (50, 50))
+        screen.blit(balloon.image, (Balloon.pos_x, Balloon.pos_y))
         
         clock.tick(1000)
 
