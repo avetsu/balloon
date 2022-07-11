@@ -13,10 +13,6 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
 
-    class Background():
-        def __init__(self):
-            self.image = pygame.image.load('Test - Copie.png')
-
     class Balloon(pygame.sprite.Sprite):
 
         def __init__(self):
@@ -77,8 +73,6 @@ if __name__ == "__main__":
     running = True
     while running:
         quit_game()
-
-        screen.blit(background.image, (0, 0))
 
         screen.blit(balloon.animation_list[balloon.index], (balloon.pos_x, balloon.pos_y))
 
