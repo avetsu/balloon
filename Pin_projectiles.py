@@ -1,5 +1,5 @@
 import pygame
-import random
+from random import randint
 
 
 class Pin(pygame.sprite.Sprite):
@@ -30,16 +30,16 @@ class Pin(pygame.sprite.Sprite):
         elif level < 40:
             self.color_index = 4
         elif level >= 40:
-            self.color_index = random.randint(0, 4)
+            self.color_index = randint(0, 4)
 
         self.image = self.skin_list[self.color_index]
 
         # make an invisible square around the sprite that is used to detect collision
         self.rect = self.image.get_rect()
 
-        self.damage = 10
+        self.damage = 1
 
-        self.speed = speed
+        self.speed = speed + randint(5, 10)
 
         self.pos_x = spawn_pos[0]
         self.pos_y = spawn_pos[1]
