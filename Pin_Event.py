@@ -7,12 +7,9 @@ class PinEvent:
 
     def __init__(self, level):
         self.level = level
-        if self.level <= 5:
-            self.projectiles_speed = self.level * 4
-            self.projectiles_number = self.level + 10 * self.level
-        else:
-            self.projectiles_speed = 30
-            self.projectiles_number = 60
+
+        self.projectiles_speed = self.level * 1
+        self.projectiles_number = self.level + 10 * self.level
 
         self.space_projectiles = 0
 
@@ -39,15 +36,17 @@ class PinEvent:
 
         self.spawned = True
 
-    def delete(self):
-        """delete the pins instances"""
-        for pin in self.projectiles_list:
-            if pin.pos_x < -67 and pin.direction == "gauche" or pin.pos_x > 1356 and pin.direction == "droite":
-                self.projectiles_list.remove(pin)
-                self.delete_list.append(pin)
+    def delete(self, projectile):
+        """delete the pin instance"""
+        self.projectiles_list.remove(projectile)
+        self.delete_list.append(projectile)
         if len(self.delete_list) > 0:
             for d in self.delete_list:
-                del pin
+                try:
+                    del projectile
+                except:
+                    print("error: can not delete")
+                print("deleted")
                 self.delete_list.remove(d)
 
     def update(self, screen, draw_rect):
@@ -55,4 +54,6 @@ class PinEvent:
         if self.spawned:
             for pin in self.projectiles_list:
                 pin.update(screen, draw_rect)
-        self.delete()
+        for pin in self.projectiles_list:
+            if pin.pos_x < -67 and pin.direction == "gauche" or pin.pos_x > 1356 and pin.direction == "droite":
+                self.delete(pin)
