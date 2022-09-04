@@ -1,3 +1,5 @@
+import time
+
 import pygame
 
 
@@ -37,6 +39,10 @@ class Balloon(pygame.sprite.Sprite):
         self.key_blocked.append(False)
         self.key_blocked.append(False)
         self.key_blocked.append(False)
+
+        self.max_health = 10
+        self.health = 10
+        self.damage_timer = 0
 
     def animation(self):
         """
@@ -79,7 +85,20 @@ class Balloon(pygame.sprite.Sprite):
             self.pos_y += 103
             self.key_blocked[3] = True
 
-    def update(self, screen, draw_rect):
+    def collision(self, event):
+        self.damage_timer -= 1
+        for projectile in event.projectiles_list:
+            if self.rect.colliderect(projectile) and self.damage_timer <= 0:
+                self.health -= projectile.damage
+                self.damage_timer = 10
+                event.delete(projectile)
+                print("collision" + str(self.health))
+
+    def death(self):
+        if self.health == 0:
+            print(" ---------- Game Over ---------- ")
+
+    def update(self, screen, draw_rect, projectile_rect):
         # make the rect follow the sprite by giving him the coordinate of the sprite
         self.rect.topleft = (self.pos_x, self.pos_y)
 
@@ -90,3 +109,5 @@ class Balloon(pygame.sprite.Sprite):
 
         self.animation()
         self.movement()
+        self.collision(projectile_rect)
+        self.death()
