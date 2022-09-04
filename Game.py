@@ -42,11 +42,11 @@ class Game:
             self.pygame_events()
 
             self.screen.fill((0, 220, 255))
-
-            self.balloon.update(self.screen, self.draw_rect)
-
+            
             self.event.level_calculation()
             self.event.event_selector(self.event_list, self.screen, self.draw_rect)
+
+            self.balloon.update(self.screen, self.draw_rect, self.event.current_event)
 
             pygame.display.flip()
             self.clock.tick(60)
